@@ -4,6 +4,7 @@ import { calculateVacation } from './calculations';
 import { VacationResult } from './types';
 import { InfoTooltip } from './components/InfoTooltip';
 import { TaxTables } from './components/TaxTables';
+import { ReformaTrabalhistaInfo } from './components/ReformaTrabalhistaInfo';
 
 const App: React.FC = () => {
   // Form State
@@ -341,6 +342,9 @@ const App: React.FC = () => {
                 </div>
               </div>
           </section>
+          
+          {/* New Reform Info Section */}
+          <ReformaTrabalhistaInfo />
 
           {/* Reference Tables */}
           <section className="print:block">
