@@ -84,23 +84,22 @@ const App: React.FC = () => {
                 Calculadora de Férias
               </h2>
 
-              <div className="grid gap-6">
-                {/* Salário Bruto */}
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">
-                    Salário Bruto R$
-                  </label>
-                  <input
-                    type="text"
-                    value={grossSalaryStr}
-                    onChange={handleCurrencyChange(setGrossSalaryStr)}
-                    placeholder="R$ 0,00"
-                    className="w-full bg-white border border-slate-300 text-slate-900 rounded-lg p-3 focus:ring-2 focus:ring-ijota-500 focus:border-ijota-500 transition-all outline-none"
-                  />
-                </div>
-
+              <div className="space-y-6">
+                
+                {/* Row 1: Salário Bruto & Dias de Férias */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Dias de Férias */}
+                    <div>
+                        <label className="block text-sm font-semibold text-slate-700 mb-2">
+                            Salário Bruto R$
+                        </label>
+                        <input
+                            type="text"
+                            value={grossSalaryStr}
+                            onChange={handleCurrencyChange(setGrossSalaryStr)}
+                            placeholder="R$ 0,00"
+                            className="w-full bg-white border border-slate-300 text-slate-900 rounded-lg p-3 focus:ring-2 focus:ring-ijota-500 focus:border-ijota-500 transition-all outline-none"
+                        />
+                    </div>
                     <div>
                         <label className="block text-sm font-semibold text-slate-700 mb-2">
                         Quantidade de Dias de Férias
@@ -111,15 +110,30 @@ const App: React.FC = () => {
                             className="w-full bg-white border border-slate-300 text-slate-900 rounded-lg p-3 focus:ring-2 focus:ring-ijota-500 focus:border-ijota-500 outline-none"
                         >
                             {[...Array(30)].map((_, i) => (
-                                <option key={i + 1} value={i + 1}>{i + 1} dias</option>
+                                <option key={i + 1} value={i + 1}>{i + 1}</option>
                             ))}
                         </select>
                     </div>
+                </div>
 
-                    {/* Dependentes */}
+                {/* Row 2: Horas Extras & Dependentes */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center">
+                            Horas Extras (se houver) R$
+                            <InfoTooltip text="Média de horas extras recebidas no período aquisitivo." />
+                        </label>
+                        <input
+                            type="text"
+                            value={overtimeStr}
+                            onChange={handleCurrencyChange(setOvertimeStr)}
+                            placeholder="R$ 0,00"
+                            className="w-full bg-white border border-slate-300 text-slate-900 rounded-lg p-3 focus:ring-2 focus:ring-ijota-500 focus:border-ijota-500 transition-all outline-none"
+                        />
+                    </div>
                     <div>
                         <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Número De Dependentes
+                        Número de Dependentes
                         </label>
                         <input
                             type="number"
@@ -132,85 +146,71 @@ const App: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Horas Extras */}
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center">
-                    Horas extras (se houver) R$
-                    <InfoTooltip text="Média de horas extras recebidas no período aquisitivo." />
-                  </label>
-                  <input
-                    type="text"
-                    value={overtimeStr}
-                    onChange={handleCurrencyChange(setOvertimeStr)}
-                    placeholder="R$ 0,00"
-                    className="w-full bg-white border border-slate-300 text-slate-900 rounded-lg p-3 focus:ring-2 focus:ring-ijota-500 focus:border-ijota-500 transition-all outline-none"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                {/* Row 3: Abono & 13º */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Abono Pecuniário */}
-                    <div className="flex flex-col">
+                    <div>
                         <span className="block text-sm font-semibold text-slate-700 mb-2 flex items-center">
                             Abono Pecuniário
                             <InfoTooltip text='Venda de 1/3 das férias (normalmente 10 dias).' />
                         </span>
-                        <div className="flex space-x-4">
-                            <label className={`flex-1 cursor-pointer flex items-center justify-center p-3 rounded-lg border ${hasAbono ? 'bg-ijota-50 border-ijota-500 text-ijota-700 ring-1 ring-ijota-500' : 'bg-white border-slate-300 text-slate-600 hover:bg-slate-50'}`}>
-                                <input 
-                                    type="radio" 
-                                    name="abono" 
-                                    className="hidden" 
-                                    checked={hasAbono} 
-                                    onChange={() => setHasAbono(true)} 
+                        <div className="w-full bg-white border border-slate-300 rounded-lg p-3 flex items-center space-x-6 h-[50px]">
+                            <label className="flex items-center cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="abono"
+                                    className="w-4 h-4 text-ijota-600 focus:ring-ijota-500 border-slate-300 cursor-pointer"
+                                    checked={hasAbono}
+                                    onChange={() => setHasAbono(true)}
                                 />
-                                <span className="font-medium">Sim</span>
+                                <span className="ml-2 text-slate-900">Sim</span>
                             </label>
-                            <label className={`flex-1 cursor-pointer flex items-center justify-center p-3 rounded-lg border ${!hasAbono ? 'bg-ijota-50 border-ijota-500 text-ijota-700 ring-1 ring-ijota-500' : 'bg-white border-slate-300 text-slate-600 hover:bg-slate-50'}`}>
-                                <input 
-                                    type="radio" 
-                                    name="abono" 
-                                    className="hidden" 
-                                    checked={!hasAbono} 
-                                    onChange={() => setHasAbono(false)} 
+                            <label className="flex items-center cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="abono"
+                                    className="w-4 h-4 text-ijota-600 focus:ring-ijota-500 border-slate-300 cursor-pointer"
+                                    checked={!hasAbono}
+                                    onChange={() => setHasAbono(false)}
                                 />
-                                <span className="font-medium">Não</span>
+                                <span className="ml-2 text-slate-900">Não</span>
                             </label>
                         </div>
                     </div>
 
                     {/* Adiantar 13º */}
-                    <div className="flex flex-col">
+                    <div>
                         <span className="block text-sm font-semibold text-slate-700 mb-2 flex items-center">
-                            Adiantar 1ª parcela 13º
+                            Adiantar 1ª Parcela 13º
                             <InfoTooltip text="Receber 50% do 13º junto com as férias." />
                         </span>
-                        <div className="flex space-x-4">
-                            <label className={`flex-1 cursor-pointer flex items-center justify-center p-3 rounded-lg border ${advance13th ? 'bg-ijota-50 border-ijota-500 text-ijota-700 ring-1 ring-ijota-500' : 'bg-white border-slate-300 text-slate-600 hover:bg-slate-50'}`}>
-                                <input 
-                                    type="radio" 
-                                    name="13th" 
-                                    className="hidden" 
-                                    checked={advance13th} 
-                                    onChange={() => setAdvance13th(true)} 
+                        <div className="w-full bg-white border border-slate-300 rounded-lg p-3 flex items-center space-x-6 h-[50px]">
+                            <label className="flex items-center cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="13th"
+                                    className="w-4 h-4 text-ijota-600 focus:ring-ijota-500 border-slate-300 cursor-pointer"
+                                    checked={advance13th}
+                                    onChange={() => setAdvance13th(true)}
                                 />
-                                <span className="font-medium">Sim</span>
+                                <span className="ml-2 text-slate-900">Sim</span>
                             </label>
-                            <label className={`flex-1 cursor-pointer flex items-center justify-center p-3 rounded-lg border ${!advance13th ? 'bg-ijota-50 border-ijota-500 text-ijota-700 ring-1 ring-ijota-500' : 'bg-white border-slate-300 text-slate-600 hover:bg-slate-50'}`}>
-                                <input 
-                                    type="radio" 
-                                    name="13th" 
-                                    className="hidden" 
-                                    checked={!advance13th} 
-                                    onChange={() => setAdvance13th(false)} 
+                            <label className="flex items-center cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="13th"
+                                    className="w-4 h-4 text-ijota-600 focus:ring-ijota-500 border-slate-300 cursor-pointer"
+                                    checked={!advance13th}
+                                    onChange={() => setAdvance13th(false)}
                                 />
-                                <span className="font-medium">Não</span>
+                                <span className="ml-2 text-slate-900">Não</span>
                             </label>
                         </div>
                     </div>
                 </div>
 
                 {/* Buttons */}
-                <div className="flex space-x-4 mt-4">
+                <div className="flex space-x-4 mt-8">
                     <button
                         type="button"
                         onClick={handleCalculate}
