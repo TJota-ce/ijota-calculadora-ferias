@@ -357,7 +357,7 @@ const App: React.FC = () => {
       {/* Footer */}
       <footer className="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 print:hidden">
         <div className="container mx-auto px-4 text-center text-sm">
-          <p>&copy; 2025 IJota Financeira. Todos os direitos reservados.</p>
+          <p>&copy; 2025 Solution. Todos os direitos reservados.</p>
         </div>
       </footer>
     </div>
